@@ -1,9 +1,3 @@
-#CONFIGDIR=$(DESTDIR)/etc/myapp
-#CRONDIR=$(DESTDIR)/etc/cron.d
-#INITDIR=$(DESTDIR)/etc/init.d
-#LOGROTATEDIR=$(DESTDIR)/etc/logrotate.d
-#INSTALLDIR=$(DESTDIR)/my/install/path
-
 # Basic package information
 PKG_NAME=aci-tomcat
 PKG_DESCRIPTION="tomcat"
@@ -56,18 +50,12 @@ ifeq ($(TMC_VERSION),7)
 	wget -q $(JMX_URL) -P $(TMPINSTALLDIR)/apache-tomcat-$(PKG_VERSION)/lib
 	fpm -t deb -p $(PKG_DEB) $(FPM_OPTS) \
     	--prefix /opt/devel/java/
-else
+endif
+
+ifeq ($(TMC_VERSION),9)
 	fpm -t deb -p $(PKG_DEB) $(FPM_OPTS) \
     	--prefix /opt/devel/java/
 endif
-
-# Set as needed: package dependencies (-d), after-install script, and paths to
-# include in the package (last line):
-#
-	fpm -t deb -p $(PKG_DEB) $(FPM_OPTS) \
-	    --prefix /opt/devel/java/
-		#--after-install postinstall-deb \
-		#etc usr var
 
 publish:
 #	Do whatever you need to publish your packages to your private repos, if you have any.
