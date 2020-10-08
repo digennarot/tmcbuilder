@@ -19,5 +19,6 @@ RUN gem install fpm
 
 WORKDIR /var/tmp
 COPY Makefile /var/tmp
+COPY makeme.sh /var/tmp
 
-CMD ["make", "PKG_RELEASE=${version}", "-C", "/var/tmp"]
+CMD ["makeme.sh"]
